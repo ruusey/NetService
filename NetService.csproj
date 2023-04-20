@@ -10,6 +10,9 @@
     <Platforms>AnyCPU;x64</Platforms>
     <Configurations>Debug;Release;erft</Configurations>
     <AutoGenerateBindingRedirects>False</AutoGenerateBindingRedirects>
+	<PublishSingleFile>true</PublishSingleFile>
+	<RuntimeIdentifier>win-x64</RuntimeIdentifier>
+
   </PropertyGroup>
 
   <ItemGroup>
@@ -19,6 +22,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.Logging.EventLog" Version="7.0.0" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.13" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="7.0.0" />
@@ -44,7 +48,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Models\" />
 
     <Folder Include="Repo\" />
 

@@ -16,7 +16,8 @@ nupkg/
 *.user
 *.userosscache
 *.sln.docstates
-
+*.assets.cache
+suo
 # Build results
 [Dd]ebug/
 [Dd]ebugPublic/
@@ -27,11 +28,11 @@ x86/
 build/
 bld/
 [Bb]in/
-[Oo]bj/
+[Oo]bj
 [Oo]ut/
 msbuild.log
 msbuild.err
 msbuild.wrn
 
 # Visual Studio 2015
-.vs/
+.vs

@@ -2,7 +2,7 @@
 <Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <ActiveDebugProfile>http</ActiveDebugProfile>
-    <_SelectedScaffolderID>ApiControllerWithContextScaffolder</_SelectedScaffolderID>
+    <_SelectedScaffolderID>MinimalApiScaffolder</_SelectedScaffolderID>
     <_SelectedScaffolderCategoryPath>root/Common</_SelectedScaffolderCategoryPath>
     <WebStackScaffolding_ControllerDialogWidth>650</WebStackScaffolding_ControllerDialogWidth>
     <WebStackScaffolding_IsLayoutPageSelected>True</WebStackScaffolding_IsLayoutPageSelected>
@@ -11,6 +11,7 @@
     <WebStackScaffolding_LayoutPageFile />
     <WebStackScaffolding_DbContextTypeFullName>NetService.Repo.TodoRepo</WebStackScaffolding_DbContextTypeFullName>
     <WebStackScaffolding_IsAsyncSelected>False</WebStackScaffolding_IsAsyncSelected>
+    <NameOfLastUsedPublishProfile>D:\GitRepositories\NetService\NetService\Properties\PublishProfiles\FolderProfile.pubxml</NameOfLastUsedPublishProfile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <DebuggerFlavor>ProjectDebugger</DebuggerFlavor>
