@@ -1,6 +1,6 @@
 # NetService
-C#! - Java that can only run in docker/on windows. 
-Heres the Java Code this is based on that is platform agnostic
+C#! - Java's difficult cousin.
+Heres the Java Code this is based on that is platform agnostic (although that doesnt matter since you cant collect winlogs off a Linux box)
 ```
 public class WmicIngest {
 	private static final List<String> LOG_NAMES = Arrays.asList("system", "application", "security");
