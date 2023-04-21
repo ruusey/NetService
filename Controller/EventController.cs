@@ -16,19 +16,19 @@ namespace NetService.Controller
     [ApiController]
     public class EventController : ControllerBase
     {
-        private readonly IEventReaderService _context;
+        private readonly EventLogRepo _context;
 
-        public EventController(IEventReaderService context)
+        public EventController(EventLogRepo context)
         {
             _context = context;
         }
 
         // GET: api/Todo
         [HttpGet]
-        public  HashSet<EventLogEntry> GetEventLogs()
+        public  List<NetService.Models.EventLog> GetEventLogs()
         {
-           
-            return _context.getEntrysByLogGroup("Application",100);
+
+            return _context.Events.ToList();
         }
 
     }

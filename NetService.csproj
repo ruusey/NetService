@@ -47,10 +47,4 @@
     <Using Include="System.Configuration" />
   </ItemGroup>
 
-  <ItemGroup>
-
-    <Folder Include="Repo\" />
-
-  </ItemGroup>
-
 </Project>

@@ -9,19 +9,18 @@ var logNames = new Collection<String>();
 
 logNames.Add("Application");
 logNames.Add("Security");
-builder.Services.AddSingleton<IEventReaderService>(x =>
-    ActivatorUtilities.CreateInstance<EventReaderService>(x, logNames));
-builder.Services.AddControllers();
-builder.Services.AddDbContext<TodoRepo>(opt =>
+builder.Services.AddDbContext<EventLogRepo>(opt =>
     opt.UseInMemoryDatabase("TodoList"));
+builder.Services.AddControllers();
 
+//builder.Services.AddSingleton<IEventReaderService>(x =>
+//    ActivatorUtilities.CreateInstance<EventReaderService>(x, parameters: new object[] { logNames }));
 
-
-//builder.Services.AddScoped<IEventReaderService, EventReaderService>();
+builder.Services.AddScoped<IEventReaderService, EventReaderService>();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
+//var sp = builder.Services.BuildServiceProvider();
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
@@ -36,4 +35,10 @@ app.UseAuthorization();
 
 app.MapControllers();
 
+var serviceProvider = app.Services.CreateScope().ServiceProvider;
+var hostingEnv = serviceProvider.GetService<IEventReaderService>();
+hostingEnv.beginCollection();
+
+
 app.Run();
+
