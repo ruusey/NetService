@@ -1,44 +1,50 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using Microsoft.Extensions.Hosting;
+using NetService.Async;
 using NetService.Repo;
 using NetService.Service;
 using System.Collections.ObjectModel;
-
-var builder = WebApplication.CreateBuilder(args);
-var logNames = new Collection<String>();
-
-logNames.Add("Application");
-logNames.Add("Security");
-builder.Services.AddDbContext<EventLogRepo>(opt =>
-    opt.UseInMemoryDatabase("TodoList"));
-builder.Services.AddControllers();
-
-//builder.Services.AddSingleton<IEventReaderService>(x =>
-//    ActivatorUtilities.CreateInstance<EventReaderService>(x, parameters: new object[] { logNames }));
-
-builder.Services.AddScoped<IEventReaderService, EventReaderService>();
-
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-//var sp = builder.Services.BuildServiceProvider();
-var app = builder.Build();
-
-if (app.Environment.IsDevelopment())
+namespace NetService
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
+    public class Program
+    {
+        public static void Main(string[] args)
+        {
+            var host = CreateHostBuilder(args).Build();
+
+            RunCollector(host);
+
+            host.Run();
+        }
+        private static void RunCollector(IHost host)
+        {
+            using (var scope = host.Services.CreateScope())
+            {
+                var services = scope.ServiceProvider;
+                try
+                {
+                    var context1 = services.GetService<EventReaderService>();
+                    context1.StartAsync(CancellationToken.None);
+
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Failed to start EventCollection Service " + ex.Message);
+                }
+            }
+        }
+
+        public static IHostBuilder CreateHostBuilder(string[] args) =>
+            Host.CreateDefaultBuilder(args)
+                .ConfigureWebHostDefaults(webBuilder =>
+                {
+                    webBuilder.UseStartup<Startup>();
+                });
+        
+    }
 }
 
-app.UseHttpsRedirection();
 
-app.UseAuthorization();
-
-app.MapControllers();
-
-var serviceProvider = app.Services.CreateScope().ServiceProvider;
-var hostingEnv = serviceProvider.GetService<IEventReaderService>();
-hostingEnv.beginCollection();
-
-
-app.Run();
 

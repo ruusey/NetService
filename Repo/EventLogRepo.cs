@@ -12,5 +12,6 @@ namespace NetService.Repo
 
         public DbSet<EventLog> EventItems { get; set; } = null!;
 
+    
     }
 }
