@@ -32,6 +32,7 @@ namespace NetService.Async
             {
                 System.Diagnostics.EventLog eventLog = new System.Diagnostics.EventLog(_logName);
                 //eventLog.Log = logName;
+                eventLog.EnableRaisingEvents = true;
                 eventLog.Source = _logName;
                 
                 foreach (EventLogEntry entry in eventLog.Entries)
@@ -47,12 +48,12 @@ namespace NetService.Async
                     catch (Exception ex)
                     {
               
-                       
+                        Console.WriteLine(ex.ToString()); 
 
                     }
                     //.Entry(logModel).State = EntityState.Modified;
                 }
-                this.Repository.SaveChangesAsync();
+                this.Repository.SaveChanges();
 
 
 
