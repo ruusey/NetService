@@ -10,9 +10,10 @@ namespace NetService.Async
         public string? _logName { get; set; }
         public EventCollectorThread(EventLogRepo repo) : base(repo)
         {
-            
+            _logName = "Security";
             Repository = repo;
         }
+
 
         public override bool Equals(object? obj)
         {
@@ -26,9 +27,8 @@ namespace NetService.Async
 
         public override void RunThread()
         {
-          
-
-            while (true)
+           
+            while (Thread.CurrentThread.ThreadState.Equals(System.Threading.ThreadState.Running));
             {
                 System.Diagnostics.EventLog eventLog = new System.Diagnostics.EventLog(_logName);
                 //eventLog.Log = logName;
@@ -59,7 +59,7 @@ namespace NetService.Async
 
                 try
                 {
-                    eventLog.Clear();
+                    //eventLog.Clear();
                 }
                 catch (Exception ex)
                 {

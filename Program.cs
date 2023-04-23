@@ -18,7 +18,7 @@ namespace NetService
 
             host.Run();
         }
-        private static void RunCollector(IHost host)
+        private static async void RunCollector(IHost host)
         {
             using (var scope = host.Services.CreateScope())
             {
@@ -26,7 +26,7 @@ namespace NetService
                 try
                 {
                     var context1 = services.GetService<EventReaderService>();
-                    context1.StartAsync(CancellationToken.None);
+                    await context1.DoWorkAsync(CancellationToken.None);
 
                 }
                 catch (Exception ex)
