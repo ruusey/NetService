@@ -10,6 +10,7 @@ namespace NetService.Async
         public string? _logName { get; set; }
         public EventCollectorThread(EventLogRepo repo) : base(repo)
         {
+            //Default Log Group is Security. Override by setting _logName.
             _logName = "Security";
             Repository = repo;
         }

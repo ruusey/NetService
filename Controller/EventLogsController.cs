@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using NetService.Models;
 using NetService.Repo;
+using NetService.Service;
 
 namespace NetService.Controller
 {
@@ -41,6 +42,24 @@ namespace NetService.Controller
               return NotFound();
           }
             var eventLog = await _context.Events.FindAsync(id);
+
+            if (eventLog == null)
+            {
+                return NotFound();
+            }
+
+            return eventLog;
+        }
+
+        [HttpGet("/source/{id}")]
+        public async Task<ActionResult<IEnumerable<EventLog>>> GetEventLogsBySource(string id)
+        {
+            if (_context.Events == null || !EventReaderService.LOG_NAMES.Contains(id))
+            {
+                return NotFound();
+            }
+            String queryStr = "SELECT * FROM EventLog WHERE source = {0}";
+            var eventLog = await (_context.Events.FromSqlRaw(queryStr, id).ToListAsync());
 
             if (eventLog == null)
             {
