@@ -18,6 +18,7 @@ nupkg/
 *.sln.docstates
 *.assets.cache
 suo
+.suo
 # Build results
 [Dd]ebug/
 [Dd]ebugPublic/
@@ -28,7 +29,7 @@ x86/
 build/
 bld/
 [Bb]in/
-[Oo]bj
+[Oo]bj/
 [Oo]ut/
 msbuild.log
 msbuild.err
