@@ -24,13 +24,18 @@ namespace NetService.Controller
 
         // GET: api/EventLogs
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<EventLog>>> GetEvents()
+        public async Task<ActionResult<IEnumerable<EventLog>>> GetEvents(int page, int size)
         {
           if (_context.Events == null)
           {
               return NotFound();
           }
-            return await _context.Events.ToListAsync();
+            if (size == 0)
+            {
+                size = 10;
+            }
+          return await _context.Events.Skip(page*size).Take(size).ToListAsync();
+          //  return await _context.Events.ToListAsync();
         }
 
         // GET: api/EventLogs/5
@@ -51,15 +56,15 @@ namespace NetService.Controller
             return eventLog;
         }
 
-        [HttpGet("/source/{id}")]
-        public async Task<ActionResult<IEnumerable<EventLog>>> GetEventLogsBySource(string id)
+        [HttpGet("source/{id}")]
+        public async Task<ActionResult<IEnumerable<EventLog>>> GetEventLogsBySource(string id, int page, int size)
         {
             if (_context.Events == null || !EventReaderService.LOG_NAMES.Contains(id))
             {
                 return NotFound();
             }
             String queryStr = "SELECT * FROM EventLog WHERE source = {0}";
-            var eventLog = await (_context.Events.FromSqlRaw(queryStr, id).ToListAsync());
+            var eventLog = await (_context.Events.Where(entry=>entry.Source == id).Skip(page * size).Take(size).ToListAsync());
 
             if (eventLog == null)
             {

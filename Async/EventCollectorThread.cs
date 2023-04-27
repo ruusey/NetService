@@ -2,6 +2,7 @@
 using NetService.Repo;
 using NetService.Service;
 using System.Diagnostics;
+#pragma warning disable CA1416 // Validate platform compatibility
 
 namespace NetService.Async
 {
@@ -33,7 +34,7 @@ namespace NetService.Async
             {
                 System.Diagnostics.EventLog eventLog = new System.Diagnostics.EventLog(_logName);
                 //eventLog.Log = logName;
-                eventLog.EnableRaisingEvents = true;
+                //eventLog.EnableRaisingEvents = true;
                 eventLog.Source = _logName;
                 
                 foreach (EventLogEntry entry in eventLog.Entries)
@@ -41,6 +42,7 @@ namespace NetService.Async
                     Models.EventLog logModel = new Models.EventLog();
                     logModel.Message = entry.Message;
                     logModel.Machine = entry.MachineName;
+                    logModel.Source = _logName;
                     try
                     {
                         this.Repository.Add(logModel);
@@ -60,7 +62,7 @@ namespace NetService.Async
 
                 try
                 {
-                    //eventLog.Clear();
+                    eventLog.Clear();
                 }
                 catch (Exception ex)
                 {
@@ -81,3 +83,4 @@ namespace NetService.Async
         }
     }
 }
+#pragma warning restore CA1416 // Validate platform compatibility
