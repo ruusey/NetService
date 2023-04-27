@@ -63,8 +63,12 @@ namespace NetService.Controller
             {
                 return NotFound();
             }
-            String queryStr = "SELECT * FROM EventLog WHERE source = {0}";
-            var eventLog = await (_context.Events.Where(entry=>entry.Source == id).Skip(page * size).Take(size).ToListAsync());
+            if (size == 0)
+            {
+                size = 10;
+            }
+            Console.WriteLine("Getting logs for log group: " + id);
+            var eventLog = await (_context.Events.Where(entry=>entry.Source.Equals(id)).Skip(page * size).Take(size).ToListAsync());
 
             if (eventLog == null)
             {

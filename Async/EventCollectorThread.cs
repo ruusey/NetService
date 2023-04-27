@@ -36,7 +36,7 @@ namespace NetService.Async
                 //eventLog.Log = logName;
                 //eventLog.EnableRaisingEvents = true;
                 eventLog.Source = _logName;
-                
+                eventLog.Log = _logName;
                 foreach (EventLogEntry entry in eventLog.Entries)
                 {
                     Models.EventLog logModel = new Models.EventLog();
@@ -62,7 +62,7 @@ namespace NetService.Async
 
                 try
                 {
-                    eventLog.Clear();
+                    //eventLog.Clear();
                 }
                 catch (Exception ex)
                 {
